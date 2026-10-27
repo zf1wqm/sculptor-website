@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCULPTOR Official Online Store</title>
+    <meta name="description" content="스컬프터(SCULPTOR) 공식 온라인 스토어 - New Drop, Style Edit, Best Seller 컬렉션">
+
+    <!-- Pretendard (한글 웹 폰트) -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
+    <!-- Google Fonts: 영문 로고 & 헤딩 세리프 (Playfair Display, Bodoni Moda, Cinzel) & 본문 산세리프 (Montserrat) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,400&family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Pretendard', 'Montserrat', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+                        serif: ['"Playfair Display"', '"Bodoni Moda"', 'Georgia', 'serif'],
+                        logo: ['Cinzel', '"Bodoni Moda"', '"Playfair Display"', 'serif'],
+                        en: ['Montserrat', 'Pretendard', 'sans-serif'],
+                    },
+                    colors: {
+                        sculptor: {
+                            black: '#111111',
+                            gray: '#707070',
+                            lightgray: '#f5f5f5',
+                            footer: '#e2e2e2',
+                        }
+                    },
+                    spacing: {
+                        'section': '4.5rem',
+                        'section-lg': '6.5rem',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Swiper CSS CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/style(1).css">
+</head>
+<body class="bg-white text-neutral-900 font-sans antialiased overflow-x-hidden selection:bg-neutral-900 selection:text-white">
+
+    <!-- Header (Sticky on Scroll with Backdrop Blur) -->
+    <header id="header" class="fixed top-0 left-0 w-full z-40 transition-all duration-300">
+        <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between relative">
+            
+            <!-- Left Empty Slot for Symmetric Balance (or Quick Links on PC) -->
+            <div class="w-20 hidden sm:block">
+                <a href="#new-drop" class="text-[11px] font-en uppercase tracking-widest text-neutral-500 hover:text-black transition-colors">COLLECTION</a>
+            </div>
+
+            <!-- Center Logo -->
+            <div class="absolute left-1/2 -translate-x-1/2">
+                <a href="#" class="inline-block group" aria-label="SCULPTOR 홈">
+                    <h1 class="font-logo text-2xl sm:text-3xl md:text-[34px] font-normal tracking-[0.22em] text-neutral-950 uppercase select-none transition-transform duration-300 group-hover:scale-[1.01]">
+                        SCULPTOR
+                    </h1>
+                </a>
+            </div>
+
+            <!-- Right Icons (Search, User/Account, Menu) -->
+            <div class="flex items-center gap-4 sm:gap-5 ml-auto text-neutral-900">
+                <button id="search-btn" type="button" class="p-1.5 hover:opacity-60 transition-opacity" aria-label="검색창 열기">
+                    <i data-lucide="search" class="w-4 h-4 md:w-5 md:h-5 stroke-[1.5]"></i>
+                </button>
+                <a href="#login" id="user-btn" class="p-1.5 hover:opacity-60 transition-opacity" aria-label="마이페이지">
+                    <i data-lucide="user" class="w-4 h-4 md:w-5 md:h-5 stroke-[1.5]"></i>
+                </a>
+                <button id="mobile-menu-btn" type="button" class="p-1.5 hover:opacity-60 transition-opacity" aria-label="메뉴 열기">
+                    <i data-lucide="menu" class="w-5 h-5 md:w-6 md:h-6 stroke-[1.5]"></i>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-drawer" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300" aria-hidden="true">
+        <div id="mobile-drawer-content" class="absolute right-0 top-0 bottom-0 w-4/5 max-w-xs bg-white p-6 sm:p-8 shadow-2xl translate-x-full transition-transform duration-300 flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between pb-6 border-b border-neutral-200">
+                    <span class="font-logo text-xl tracking-[0.2em] font-medium">SCULPTOR</span>
+                    <button id="close-drawer-btn" class="p-1.5 text-neutral-600 hover:text-black transition-colors" aria-label="메뉴 닫기">
+                        <i data-lucide="x" class="w-5 h-5 stroke-[1.5]"></i>
+                    </button>
+                </div>
+                <nav class="flex flex-col gap-6 py-8 text-sm tracking-widest font-en uppercase">
+                    <a href="#new-drop" class="mobile-nav-link flex items-center justify-between hover:text-neutral-500 transition-colors">
+                        <span>NEW DROP</span>
+                        <i data-lucide="chevron-right" class="w-4 h-4 text-neutral-400"></i>
+                    </a>
+                    <a href="#style-edit" class="mobile-nav-link flex items-center justify-between hover:text-neutral-500 transition-colors">
+                        <span>STYLE EDIT</span>
+                        <i data-lucide="chevron-right" class="w-4 h-4 text-neutral-400"></i>
+                    </a>
+                    <a href="#best-seller" class="mobile-nav-link flex items-center justify-between hover:text-neutral-500 transition-colors">
+                        <span>BEST SELLER</span>
+                        <i data-lucide="chevron-right" class="w-4 h-4 text-neutral-400"></i>
+                    </a>
+                    <a href="#inside-sculptor" class="mobile-nav-link flex items-center justify-between hover:text-neutral-500 transition-colors">
+                        <span>INSIDE SCULPTOR</span>
+                        <i data-lucide="chevron-right" class="w-4 h-4 text-neutral-400"></i>
+                    </a>
+                </nav>
+            </div>
+            <div class="border-t border-neutral-200 pt-6 text-xs text-neutral-500 space-y-3 font-en">
+                <a href="#" class="block hover:text-black transition-colors">LOGIN / REGISTER</a>
+                <a href="#" class="block hover:text-black transition-colors">CART (0)</a>
+                <a href="#" class="block hover:text-black transition-colors">ABOUT SCULPTOR</a>
+                <p class="text-[10px] text-neutral-400 pt-2">© SCULPTOR ALL RIGHTS RESERVED.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Overlay Modal -->
+    <div id="search-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 flex items-start justify-center pt-24 md:pt-32 px-4" aria-hidden="true">
+        <div class="bg-white w-full max-w-xl p-6 sm:p-8 shadow-2xl relative transform -translate-y-4 transition-transform duration-300">
+            <button id="close-search-btn" class="absolute top-6 right-6 text-neutral-400 hover:text-black p-1 transition-colors" aria-label="검색창 닫기">
+                <i data-lucide="x" class="w-5 h-5 stroke-[1.5]"></i>
+            </button>
+            <div class="relative mt-2">
+                <input type="text" id="search-input" placeholder="SEARCH SCULPTOR..." class="w-full text-base border-b border-neutral-300 pb-3 pl-1 pr-10 focus:outline-none focus:border-black font-en tracking-wider uppercase placeholder:text-neutral-400">
+                <button type="submit" class="absolute right-2 top-2 text-neutral-500 hover:text-black transition-colors" aria-label="검색 실행">
+                    <i data-lucide="search" class="w-5 h-5 stroke-[1.5]"></i>
+                </button>
+            </div>
+            <div class="mt-4 flex flex-wrap gap-2 text-xs font-en text-neutral-400">
+                <span>POPULAR:</span>
+                <a href="#" class="hover:text-black underline underline-offset-2">HOODIE</a>
+                <a href="#" class="hover:text-black underline underline-offset-2">DENIM</a>
+                <a href="#" class="hover:text-black underline underline-offset-2">JACKET</a>
+                <a href="#" class="hover:text-black underline underline-offset-2">BAG</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+
+        <!-- 1. Main Visual (Hero Visual - Seamless Match with Design Mockup) -->
+        <section class="main-visual relative w-full overflow-hidden bg-[#f8f8f8] flex items-center justify-center pt-16 sm:pt-20">
+            <div class="w-full max-w-[1240px] mx-auto hero-image-container overflow-hidden">
+                <img src="./images/hero_banner.png" alt="SCULPTOR FW Main Campaign Visual" class="w-full h-auto block object-cover object-top select-none hero-visual-img">
+            </div>
+        </section>
+
+        <!-- 2. New Drop Section -->
+        <section id="new-drop" class="new-drop-section pt-16 pb-20 md:pt-24 md:pb-28 bg-white">
+            <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Section Header -->
+                <div class="text-center mb-10 md:mb-14">
+                    <h2 class="section-title font-serif text-2xl sm:text-3xl md:text-[34px] font-normal tracking-tight text-neutral-950 lowercase first-letter:uppercase">
+                        New drop
+                    </h2>
+                </div>
+
+                <!-- Swiper Carousel Container (4 Items on PC) -->
+                <div class="relative group/newdrop px-1 sm:px-0">
+                    <div class="swiper newDropSwiper">
+                        <div class="swiper-wrapper items-start">
+
+                            <!-- Product 1: Velvet Zip-up Hood -->
+                            <div class="swiper-slide product-item text-center group cursor-pointer">
+                                <div class="product-img-box w-full aspect-[4/5] flex items-center justify-center mb-3 bg-[#fafafa] overflow-hidden rounded-sm transition-colors duration-300 group-hover:bg-[#f3f3f3]">
+                                    <img src="./images/new_1.png" alt="Fur Velvet Zip-up Hood" class="max-h-[85%] max-w-[85%] object-contain mx-auto select-none transition-transform duration-500 ease-out group-hover:scale-105">
+                                </div>
+                                <div class="product-info space-y-1">
+                                    <p class="font-en text-[11px] sm:text-xs text-neutral-800 tracking-tight leading-snug group-hover:text-black">
+                                        Fur Velvet Zip-up Hood
+                                    </p>
+                                    <p class="font-en text-[11px] sm:text-xs font-semibold text-neutral-950">
+                                        ₩139,000
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Product 2: Faux Fur Crop Jacket -->
+                            <div class="swiper-slide product-item text-center group cursor-pointer">
+                                <div class="product-img-box w-full aspect-[4/5] flex items-center justify-center mb-3 bg-[#fafafa] overflow-hidden rounded-sm transition-colors duration-300 group-hover:bg-[#f3f3f3]">
+                                    <img src="./images/new_2.png" alt="Faux Fur Crop Jacket" class="max-h-[85%] max-w-[85%] object-contain mx-auto select-none transition-transform duration-500 ease-out group-hover:scale-105">
+                                </div>
+                                <div class="product-info space-y-1">
+                                    <p class="font-en text-[11px] sm:text-xs text-neutral-800 tracking-tight leading-snug group-hover:text-black">
+                                        Faux Fur Crop Jacket
+                                    </p>
+                                    <p class="font-en text-[11px] sm:text-xs font-semibold text-neutral-950">
+                                        ₩169,000
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Product 3: Graphic Long Sleeve Top -->
+                            <div class="swiper-slide product-item text-center group cursor-pointer">
+                                <div class="product-img-box w-full aspect-[4/5] flex items-center justify-center mb-3 bg-[#fafafa] overflow-hidden rounded-sm transition-colors duration-300 group-hover:bg-[#f3f3f3]">
+                                    <img src="./images/new_3.png" alt="Graphic Long Sleeve Top" class="max-h-[85%] max-w-[85%] object-contain mx-auto select-none transition-transform duration-500 ease-out group-hover:scale-105">
+                                </div>
+                                <div class="product-info space-y-1">
+                                    <p class="font-en text-[11px] sm:text-xs text-neutral-800 tracking-tight leading-snug group-hover:text-black">
+                                        Graphic Long Sleeve Top
+                                    </p>
+                                    <p class="font-en text-[11px] sm:text-xs font-semibold text-neutral-950">
+                                        ₩68,000
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Product 4: Cross Sequin Shoulder Bag -->
+                            <div class="swiper-slide product-item text-center group cursor-pointer">
+                                <div class="product-img-box w-full aspect-[4/5] flex items-center justify-center mb-3 bg-[#fafafa] overflow-hidden rounded-sm transition-colors duration-300 group-hover:bg-[#f3f3f3]">
+                                    <img src="./images/new_4.png" alt="Cross Sequin Shoulder Bag" class="max-h-[85%] max-w-[85%] object-contain mx-auto select-none transition-transform duration-500 ease-out group-hover:scale-105">
+                                </div>
+                                <div class="product-info space-y-1">
+                                    <p class="font-en text-[11px] sm:text-xs text-neutral-800 tracking-tight leading-snug group-hover:text-black">
+                                        Cross Sequin Shoulder Bag
+                                    </p>
+                                    <p class="font-en text-[11px] sm:text-xs font-semibold text-neutral-950">
+                                        ₩89,000
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Minimal Nav Arrows -->
+                    <button class="new-prev-btn absolute left-0 top-1/3 -translate-y-1/2 -translate-x-2 md:-translate-x-6 z-20 w-9 h-9 rounded-full bg-white/80 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none border border-neutral-200 md:border-transparent flex items-center justify-center text-neutral-700 hover:text-black transition-all" aria-label="이전 상품 보기">
+                        <i data-lucide="chevron-left" class="w-5 h-5 stroke-[1.5]"></i>
+                    </button>
+                    <button class="new-next-btn absolute right-0 top-1/3 -translate-y-1/2 translate-x-2 md:translate-x-6 z-20 w-9 h-9 rounded-full bg-white/80 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none border border-neutral-200 md:border-transparent flex items-center justify-center text-neutral-700 hover:text-black transition-all" aria-label="다음 상품 보기">
+                        <i data-lucide="chevron-right" class="w-5 h-5 stroke-[1.5]"></i>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 3. Middle Full Release Banner (Exact Match with Design Mockup) -->
+        <section class="middle-banner-section py-6 md:py-10 bg-white">
+            <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+                <a href="#new-drop" class="block w-full overflow-hidden group cursor-pointer" aria-label="FULL RELEASE 컬렉션 바로가기">
+                    <div class="w-full flex items-center justify-center transition-transform duration-700 ease-out group-hover:scale-[1.015]">
+                        <img src="./images/banner_full_release.png" alt="FULL RELEASE - 스컬프터 컬렉션 발매" class="w-full h-auto max-h-[220px] object-contain select-none">
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- 4. Style Edit Section (1 Large Left + 2x2 Small Right Editorial Grid) -->
+        <section id="style-edit" class="style-edit-section pt-16 pb-12 md:pt-24 md:pb-16 bg-white">
+            <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Section Header -->
+                <div class="text-center mb-10 md:mb-14">
+                    <h2 class="section-title font-serif text-2xl sm:text-3xl md:text-[34px] font-normal tracking-tight text-neutral-950 lowercase">
+                        style edit
+                    </h2>
+                </div>
+
+                <!-- Editorial Layout: 1 Large Left + 2x2 Small Right -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-center max-w-[960px] mx-auto">
+                    
+                    <!-- Left: Large Featured Styling Look -->
+                    <div class="md:col-span-6 flex items-center justify-center">
+                        <div class="style-card w-full max-w-[420px] aspect-[1/1.65] flex items-center justify-center group overflow-hidden cursor-pointer">
+                            <img src="./images/style_main.png" alt="Sculptor Style Edit Look 01" class="max-h-full max-w-full object-contain mx-auto select-none transition-transform duration-700 ease-out group-hover:scale-105">
+                        </div>
+                    </div>
+
+                    <!-- Right: 2x2 Small Looks -->
+                    <div class="md:col-span-6 grid grid-cols-2 gap-4 sm:gap-6">
+                        
+                        <!-- Look 1 -->
+                        <div class="style-card aspect-[1/1.65] flex items-center justify-center group overflow-hidden cursor-pointer">
+                            <img src="./images/style_sub1.png" alt="Sculptor Style Edit Look 02" class="max-h-full max-w-full object-contain mx-auto select-none transition-transform duration-700 ease-out group-hover:scale-105">
+                        </div>
+
+                        <!-- Look 2 -->
+                        <div class="style-card aspect-[1/1.65] flex items-center justify-center group overflow-hidden cursor-pointer">
+                            <img src="./images/style_sub2.png" alt="Sculptor Style Edit Look 03" class="max-h-full max-w-full object-contain mx-auto select-none transition-transform duration-700 ease-out group-hover:scale-105">
+                        </div>
+
+                        <!-- Look 3 -->
+                        <div class="style-card aspect-[1/1.65] flex items-center justify-center group overflow-hidden cursor-pointer">
+                            <img src="./images/style_sub3.png" alt="Sculptor Style Edit Look 04" class="max-h-full max-w-full object-contain mx-auto select-none transition-transform duration-700 ease-out group-hover:scale-105">
+                        </div>
+
+                        <!-- Look 4 -->
+                        <div class="style-card aspect-[1/1.65] flex items-center justify-center group overflow-hidden cursor-pointer">
+                            <img src="./images/style_sub4.png" alt="Sculptor Style Edit Look 05" class="max-h-full max-w-full object-contain mx-auto select-none transition-transform duration-700 ease-out group-hover:scale-105">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- First Y2K Ornament Divider -->
+        <div class="ornament-divider w-full py-8 md:py-12 flex items-center justify-center overflow-hidden bg-white select-none">
+            <div class="max-w-[580px] w-full px-6">
+                <img src="./images/ornament_1.png" alt="Sculptor Tribal Flourish Ornament" class="w-full h-auto object-contain mx-auto opacity-75 ornament-img">
+            </div>
+        </div>
+
+        <!-- 5. Best Seller Section (5 Items on PC) -->
+        <section id="best-seller" class="best-seller-section pt-10 pb-12 md:pt-16 md:pb-16 bg-white">
+            <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Section Header -->
+                <div class="text-center mb-10 md:mb-14">
+                    <h2 class="section-title font-serif text-2xl sm:text-3xl md:text-[34px] font-normal tracking-tight text-neutral-950 lowercase">
+                        best seller
+                    </h2>
+                </div>
+
+                <!-- Swiper Carousel Container (5 Items on PC) -->
+                <div class="relative group/bestseller px-1 sm:px-0">
+                    <div class="swiper bestSellerSwiper">
+                        <div class="swiper-wrapper items-start">
+
+                            <!-- Best Item 1 -->
+                            <div class="swiper-slide product-item text-center group cursor-pointer">
+                                <div class="product-img-box w-full aspect-[4/5] flex items-center justify-center mb-3 bg-[#fafafa] overflow-hidden rounded-sm transition-colors duration-300 group-hover:bg-[#f3f3f3]">
+                                    <img src="./images/best_1.png" alt="Vintage Bomber Jacket Crop" class="max-h-[85%] max-w-[85%] object-contain mx-auto select-none transition-transform duration-500 ease-out group-hover:scale-105">
+                                </div>
+                                <div class="product-info space-y-1">
+                                    <p class="font-en text-[11px] sm:text-xs text-neutral-800 tracking-tight leading-snug group-hover:text-black">
+                                        Vintage Bomber Jacket Crop
+                                    </p>
+                                    <p class="font-en text-[11px] sm:text-xs font-semibold text-neutral-950">
+                                        ₩178,000
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Best Item 2 -->
+                            <div class="swiper-slide product-item text-center group cursor-pointer">
+                                <div class="product-img-box w-full aspect-[4/5] flex items-center justify-center mb-3 bg-[#fafafa] overflow-hidden rounded-sm transition-colors duration-300 group-hover:bg-[#f3f3f3]">
+                                    <img src="./images/best_2.png" alt="Body Graphic Long Sleeve" class="max-h-[85%] max-w-[85%] object-contain mx-auto select-none transition-transform duration-500 ease-out group-hover:scale-105">
+                                </div>
+                                <div class="product-info space-y-1">
+                                    <p class="font-en text-[11px] sm:text-xs text-neutral-800 tracking-tight leading-snug group-hover:text-black">
+                                        Body Graphic Long Sleeve
+                                    </p>
+                                    <p class="font-en text-[11px] sm:text-xs font-semibold text-neutral-950">
+                                        ₩72,000
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Best Item 3 -->
+                            <div class="swiper-slide product-item text-center group cursor-pointer">
+                                <div class="product-img-box w-full aspect-[4/5] flex items-center justify-center mb-3 bg-[#fafafa] overflow-hidden rounded-sm transition-colors duration-300 group-hover:bg-[#f3f3f3]">
+                                    <img src="./images/best_3.png" alt="Graffiti Oversized Hoodie" class="max-h-[85%] max-w-[85%] object-contain mx-auto select-none transition-transform duration-500 ease-out group-hover:scale-105">
+                                </div>
+                                <div class="product-info space-y-1">
+                                    <p class="font-en text-[11px] sm:text-xs text-neutral-800 tracking-tight leading-snug group-hover:text-black">
+                                        Graffiti Oversized Hoodie
+                                    </p>
+                                    <p class="font-en text-[11px] sm:text-xs font-semibold text-neutral-950">
+                                        ₩108,000
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Best Item 4 -->
+                            <div class="swiper-slide product-item text-center group cursor-pointer">
+                                <div class="product-img-box w-full aspect-[4/5] flex items-center justify-center mb-3 bg-[#fafafa] overflow-hidden rounded-sm transition-colors duration-300 group-hover:bg-[#f3f3f3]">
+                                    <img src="./images/best_4.png" alt="Two-tone Raw Cut Wide Denim" class="max-h-[85%] max-w-[85%] object-contain mx-auto select-none transition-transform duration-500 ease-out group-hover:scale-105">
+                                </div>
+                                <div class="product-info space-y-1">
+                                    <p class="font-en text-[11px] sm:text-xs text-neutral-800 tracking-tight leading-snug group-hover:text-black">
+                                        Two-tone Raw Cut Denim
+                                    </p>
+                                    <p class="font-en text-[11px] sm:text-xs font-semibold text-neutral-950">
+                                        ₩118,000
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Best Item 5 -->
+                            <div class="swiper-slide product-item text-center group cursor-pointer">
+                                <div class="product-img-box w-full aspect-[4/5] flex items-center justify-center mb-3 bg-[#fafafa] overflow-hidden rounded-sm transition-colors duration-300 group-hover:bg-[#f3f3f3]">
+                                    <img src="./images/best_5.png" alt="Silver Charm Pocket Hobo Bag" class="max-h-[85%] max-w-[85%] object-contain mx-auto select-none transition-transform duration-500 ease-out group-hover:scale-105">
+                                </div>
+                                <div class="product-info space-y-1">
+                                    <p class="font-en text-[11px] sm:text-xs text-neutral-800 tracking-tight leading-snug group-hover:text-black">
+                                        Silver Charm Hobo Bag
+                                    </p>
+                                    <p class="font-en text-[11px] sm:text-xs font-semibold text-neutral-950">
+                                        ₩98,000
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Minimal Nav Arrows -->
+                    <button class="best-prev-btn absolute left-0 top-1/3 -translate-y-1/2 -translate-x-2 md:-translate-x-6 z-20 w-9 h-9 rounded-full bg-white/80 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none border border-neutral-200 md:border-transparent flex items-center justify-center text-neutral-700 hover:text-black transition-all" aria-label="이전 상품 보기">
+                        <i data-lucide="chevron-left" class="w-5 h-5 stroke-[1.5]"></i>
+                    </button>
+                    <button class="best-next-btn absolute right-0 top-1/3 -translate-y-1/2 translate-x-2 md:translate-x-6 z-20 w-9 h-9 rounded-full bg-white/80 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none border border-neutral-200 md:border-transparent flex items-center justify-center text-neutral-700 hover:text-black transition-all" aria-label="다음 상품 보기">
+                        <i data-lucide="chevron-right" class="w-5 h-5 stroke-[1.5]"></i>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Second Y2K Ornament Divider (Restored Tribal Star) -->
+        <div class="ornament-divider w-full py-6 md:py-10 flex items-center justify-center overflow-hidden bg-white select-none">
+            <div class="max-w-[340px] w-full px-6">
+                <img src="./images/ornament_2.png" alt="Sculptor Star Flourish Ornament" class="w-full h-auto object-contain mx-auto opacity-75 ornament-img">
+            </div>
+        </div>
+
+        <!-- 6. Inside Sculptor Section (2 Rectangular Cards) -->
+        <section id="inside-sculptor" class="inside-sculptor-section pt-10 pb-20 md:pt-14 md:pb-28 bg-white">
+            <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Section Header -->
+                <div class="text-center mb-10 md:mb-14">
+                    <h2 class="section-title font-serif text-2xl sm:text-3xl md:text-[34px] font-normal tracking-tight text-neutral-950 lowercase">
+                        inside sculptor
+                    </h2>
+                </div>
+
+                <!-- 2 Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-[1040px] mx-auto">
+                    
+                    <!-- Card 1: The Hyundai Seoul Pop-up -->
+                    <article class="inside-card cursor-pointer group">
+                        <div class="w-full aspect-[16/9] overflow-hidden flex items-center justify-center bg-neutral-100 mb-3 rounded-sm">
+                            <img src="./images/inside_1.png" alt="SCULPTOR The Hyundai Seoul Pop-Up" class="w-full h-full object-cover select-none transition-transform duration-700 ease-out group-hover:scale-105">
+                        </div>
+                        <div class="flex items-center justify-between text-neutral-900 pt-1">
+                            <h3 class="font-en text-xs sm:text-sm font-normal tracking-tight group-hover:text-black">
+                                The Hyundai Seoul Pop-Up
+                            </h3>
+                            <div class="w-6 h-6 rounded-full border border-neutral-400 flex items-center justify-center shrink-0 ml-3 transition-all duration-300 group-hover:bg-black group-hover:border-black group-hover:text-white group-hover:translate-x-1">
+                                <i data-lucide="arrow-right" class="w-3.5 h-3.5 stroke-[1.5]"></i>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Card 2: Presentation Behind the Scenes -->
+                    <article class="inside-card cursor-pointer group">
+                        <div class="w-full aspect-[16/9] overflow-hidden flex items-center justify-center bg-neutral-100 mb-3 rounded-sm">
+                            <img src="./images/inside_2.png" alt="FW26 Presentation Behind The Scenes" class="w-full h-full object-cover select-none transition-transform duration-700 ease-out group-hover:scale-105">
+                        </div>
+                        <div class="flex items-center justify-between text-neutral-900 pt-1">
+                            <h3 class="font-en text-xs sm:text-sm font-normal tracking-tight group-hover:text-black">
+                                FW26 Presentation Behind the Scenes
+                            </h3>
+                            <div class="w-6 h-6 rounded-full border border-neutral-400 flex items-center justify-center shrink-0 ml-3 transition-all duration-300 group-hover:bg-black group-hover:border-black group-hover:text-white group-hover:translate-x-1">
+                                <i data-lucide="arrow-right" class="w-3.5 h-3.5 stroke-[1.5]"></i>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer (Exact Design Mockup Match) -->
+    <footer class="bg-[#dcdcdc] text-neutral-700 pt-10 pb-12 text-[10px] md:text-[11px] leading-relaxed border-t border-neutral-300">
+        <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+                <!-- Left: Navigation Links -->
+                <div class="flex flex-wrap gap-x-4 sm:gap-x-5 gap-y-1 font-en uppercase text-neutral-800 tracking-wider">
+                    <a href="#" class="hover:text-black transition-colors">NOTICE</a>
+                    <a href="#" class="hover:text-black transition-colors">GUIDE</a>
+                    <a href="#" class="hover:text-black transition-colors">TERMS OF USE</a>
+                    <a href="#" class="hover:text-black transition-colors">PRIVACY POLICY</a>
+                    <a href="#" class="hover:text-black transition-colors">ABOUT STORE</a>
+                    <a href="#" class="hover:text-black transition-colors">CONTACT</a>
+                </div>
+
+                <!-- Right: Company Details & Copyright -->
+                <div class="text-left md:text-right text-neutral-600 font-sans space-y-0.5">
+                    <p>COMPANY : (주)루츠코퍼레이션 | OWNER : 이유진 | BUSINESS LICENSE : 211-88-75612</p>
+                    <p>MAIL ORDER LICENSE : 제2018-서울마포-0562호 | ADDRESS : 서울특별시 마포구 와우산로11길 9-4, 2층</p>
+                    <p class="font-en mt-1 tracking-wider text-neutral-700">COPYRIGHT © SCULPTOR ALL RIGHTS RESERVED.</p>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Back to Top Floating Button -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 z-40 w-10 h-10 rounded-full bg-white/90 backdrop-blur-md border border-neutral-300 shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 hover:bg-black hover:text-white hover:border-black hover:-translate-y-1" aria-label="맨 위로 스크롤">
+        <i data-lucide="arrow-up" class="w-4 h-4 stroke-[1.5]"></i>
+    </button>
+
+    <!-- CDN Libraries: Lenis, GSAP, ScrollTrigger, Swiper, Lucide -->
+    <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Vanilla JS -->
+    <script src="./script/main.js"></script>
+</body>
+</html>

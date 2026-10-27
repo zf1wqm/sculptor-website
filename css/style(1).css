@@ -1,0 +1,193 @@
+@charset "UTF-8";
+
+/* ==========================================================================
+   SCULPTOR Official Store - Clean Minimal Stylesheet
+   ========================================================================== */
+
+/* 1. Base Reset & Font Smoothing */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    background-color: #ffffff;
+    color: #111111;
+}
+
+body {
+    overflow-x: hidden;
+    line-height: 1.4;
+    word-break: keep-all;
+    word-wrap: break-word;
+}
+
+/* 2. Lenis.js Smooth Scroll Essential Styles */
+html.lenis, html.lenis body {
+    height: auto;
+}
+
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+    overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+    pointer-events: none;
+}
+
+/* 3. Typography Adjustments */
+.font-logo {
+    font-family: 'Cinzel', 'Bodoni Moda', 'Playfair Display', serif;
+    letter-spacing: 0.22em;
+}
+
+.font-serif {
+    font-family: "Playfair Display", "Bodoni Moda", Georgia, serif;
+    letter-spacing: -0.015em;
+}
+
+.font-en {
+    font-family: "Montserrat", "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* 4. Custom Thin Luxury Scrollbar */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #fdfdfd;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cccccc;
+    border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #999999;
+}
+
+/* 5. Sticky Header Interactive States */
+#header {
+    background: rgba(255, 255, 255, 0.95);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+#header.scrolled {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* 6. Product Item & Images (Aspect Ratio & Protection Against Distortion) */
+.product-item {
+    transition: opacity 0.3s ease;
+}
+
+.product-img-box {
+    position: relative;
+}
+
+.product-img-box img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+}
+
+/* 7. Swiper Carousel Controls */
+.swiper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.swiper-slide {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.new-prev-btn, .new-next-btn,
+.best-prev-btn, .best-next-btn {
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.swiper-button-disabled {
+    opacity: 0.15 !important;
+    cursor: default !important;
+    pointer-events: none;
+}
+
+/* 8. Style Edit & Card Hover Effects */
+.style-card {
+    position: relative;
+    background: transparent;
+}
+
+.style-card img {
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 9. Modal & Drawer Transitions */
+#search-modal.active,
+#mobile-drawer.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#mobile-drawer.active #mobile-drawer-content {
+    transform: translateX(0);
+}
+
+#search-modal.active > div {
+    transform: translateY(0);
+}
+
+/* 10. Back to Top Floating Button */
+#back-to-top.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* 11. Y2K Ornament Animations */
+.ornament-img {
+    transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+.ornament-img:hover {
+    transform: scale(1.02);
+    opacity: 1;
+}
+
+/* 11. Y2K Ornament Animations */
+.ornament-img {
+    transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+.ornament-img:hover {
+    transform: scale(1.02);
+    opacity: 1;
+}
+
